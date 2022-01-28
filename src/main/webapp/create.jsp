@@ -8,7 +8,7 @@
 </head>
 <body>
 	<form action="CreateServlet" method="post">
-		Name: <input type="text" name="userName">
+		Namee: <input type="text" name="userName">
 		Title: <input type="text" name="title">
 		Details: <input type="text" name="description">
 		<input type="submit" value="Call Servlet"/>
