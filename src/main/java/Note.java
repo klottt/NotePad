@@ -1,18 +1,18 @@
 
 public class Note {
 	
-	protected String name;
-	public Note(String name, String title, String details) {
+	protected String user;
+	public Note(String user, String title, String details) {
 		super();
-		this.name = name;
+		this.user = user;
 		this.title = title;
 		this.details = details;
 	}
-	public String getName() {
-		return name;
+	public String getUser() {
+		return user;
 	}
-	public void setName(String name) {
-		this.name = name;
+	public void setUser(String user) {
+		this.user = user;
 	}
 	public String getTitle() {
 		return title;

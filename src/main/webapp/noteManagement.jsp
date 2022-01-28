@@ -14,12 +14,12 @@
 <body>
 	<div class="row">
 		<div class="container">
-			<h3 class="text-center">List of Users</h3>
+			<h3 class="text-center">List of Notes</h3>
 			<hr>
 			<div class="container text-left">
 				<!-- Add new user button redirects to the register.jsp page -->
-				<a href="<%=request.getContextPath()%>/register.jsp"
-					class="btn btnsuccess">Add New User</a>
+				<a href="<%=request.getContextPath()%>/create.jsp"
+					class="btn btn-success">Add New User</a>
 			</div>
 			<br>
 			<!-- Create a table to list out all current users information -->
@@ -35,20 +35,20 @@
 				<!-- Pass in the list of users receive via the Servlet’s response to a loop
 -->
 				<tbody>
-					<c:forEach var="user" items="${listNotes}">
+					<c:forEach var="notes" items="${listNotes}">
 						<!-- For each user in the database, display their
 information accordingly -->
 						<tr>
-							<td><c:out value="${note.name}" /></td>
-							<td><c:out value="${note.title}" /></td>
-							<td><c:out value="${note.details}" /></td>
+							<td><c:out value="${notes.user}" /></td>
+							<td><c:out value="${notes.title}" /></td>
+							<td><c:out value="${notes.details}" /></td>
 							<!-- For each user in the database, Edit/Delete
 buttons which invokes the edit/delete functions -->
-							<td><a href="edit?name=<c:out value='${note.name}'
+							<td><a href="edit?name=<c:out value='${notes.user}'
 />">Edit</a>
 								&nbsp;&nbsp;&nbsp;&nbsp; <a
 								href="delete?name=<c:out
-value='${note.name}' />">Delete</a></td>
+value='${notes.user}' />">Delete</a></td>
 						</tr>
 					</c:forEach>
 				</tbody>
