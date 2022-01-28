@@ -25,11 +25,11 @@ public class NoteServlet extends HttpServlet {
 	private String jdbcUsername = "root";
 	private String jdbcPassword = "password";
 	
-	private static final String INSERT_USERS_SQL = "INSERT INTO UserDetails" + " (name, title, details) VALUES " + " (?, ?, ?);";
-	private static final String SELECT_USER_BY_ID = "select name,title,details from UserDetails where name =?";
-	private static final String SELECT_ALL_USERS = "select * from UserDetails ";
-	private static final String DELETE_USERS_SQL = "delete from UserDetails where name = ?;";
-	private static final String UPDATE_USERS_SQL = "update UserDetails set name = ?,title= ?, details =?, where name = ?;";
+	private static final String INSERT_USERS_SQL = "INSERT INTO NewNotes" + " (user, title, details) VALUES " + " (?, ?, ?);";
+	private static final String SELECT_USER_BY_ID = "select user,title,details from NewNotes where name =?";
+	private static final String SELECT_ALL_USERS = "select * from NewNotes ";
+	private static final String DELETE_USERS_SQL = "delete from NewNotes where user = ?;";
+	private static final String UPDATE_USERS_SQL = "update NewNotes set user = ?,title= ?, details =?, where user = ?;";
 	
 	protected Connection getConnection() {
 		 Connection connection = null;
@@ -91,10 +91,10 @@ public class NoteServlet extends HttpServlet {
 			 ResultSet rs = preparedStatement.executeQuery();
 			 
 			 while (rs.next()) {
-			 String name = rs.getString("name");
+			 String user = rs.getString("user");
 			 String title = rs.getString("title");
 			 String details = rs.getString("details");
-			 notes.add(new Note(name, title, details));
+			 notes.add(new Note(user, title, details));
 			 }
 			 } catch (SQLException e) {
 			 System.out.println(e.getMessage());
