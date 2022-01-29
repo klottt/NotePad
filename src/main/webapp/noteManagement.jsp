@@ -44,10 +44,10 @@ information accordingly -->
 							<td><c:out value="${notes.details}" /></td>
 							<!-- For each user in the database, Edit/Delete
 buttons which invokes the edit/delete functions -->
-							<td><a href="edit?name=<c:out value='${notes.user}'
+							<td><a href="edit?user=<c:out value='${notes.user}'
 />">Edit</a>
 								&nbsp;&nbsp;&nbsp;&nbsp; <a
-								href="delete?name=<c:out
+								href="delete?user=<c:out
 value='${notes.user}' />">Delete</a></td>
 						</tr>
 					</c:forEach>
