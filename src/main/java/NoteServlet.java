@@ -28,7 +28,7 @@ public class NoteServlet extends HttpServlet {
 	private static final String SELECT_USER_BY_ID = "select user,title,details from NewNotes where user =?";
 	private static final String SELECT_ALL_USERS = "select * from NewNotes ";
 	private static final String DELETE_USERS_SQL = "delete from NewNotes where user = ?;";
-	private static final String UPDATE_USERS_SQL = "update NewNotes set title= ?, user = ?, details =? where user = ?;";
+	private static final String UPDATE_USERS_SQL = "update NewNotes set title= ?, details = ? where user = ?;";
 
 	protected Connection getConnection() {
 		Connection connection = null;
@@ -82,73 +82,7 @@ public class NoteServlet extends HttpServlet {
 		response.getWriter().append("Served at: ").append(request.getContextPath());
 	}
 
-	// method to delete user
-	private void deleteNote(HttpServletRequest request, HttpServletResponse response) throws SQLException, IOException {
-		// Step 1: Retrieve value from the request
-		String user = request.getParameter("user");
-		// Step 2: Attempt connection with database and execute delete user SQL query
-		try (Connection connection = getConnection();
-				PreparedStatement statement = connection.prepareStatement(DELETE_USERS_SQL);) {
-			statement.setString(1, user);
-			int i = statement.executeUpdate();
-		}
-		// Step 3: redirect back to UserServlet dashboard (note: remember to change the
-		// url to your project name)
-		response.sendRedirect("http://localhost:8090/NotePad2/NoteServlet/dashboard");
-	}
-
-	// method to update the user table base on the form data
-	private void updateNote(HttpServletRequest request, HttpServletResponse response) throws SQLException, IOException {
-		// Step 1: Retrieve value from the request
-		String ori = request.getParameter("ori");
-		String title = request.getParameter("title");
-		String user = request.getParameter("user");
-		String details = request.getParameter("details");
-
-		// Step 2: Attempt connection with database and execute update user SQL query
-		try (Connection connection = getConnection();
-				PreparedStatement statement = connection.prepareStatement(UPDATE_USERS_SQL);) {
-			statement.setString(1, user);
-			statement.setString(2, title);
-			statement.setString(3, details);
-			statement.setString(4, ori);
-			int i = statement.executeUpdate();
-		}
-		// Step 3: redirect back to UserServlet (note: remember to change the url to
-		// your project name)
-		response.sendRedirect("http://localhost:8090/NotePad2/NoteServlet/dashboard");
-	}
-
-	// method to get parameter, query database for existing user data and redirect
-	// to user edit page
-	private void showEditForm(HttpServletRequest request, HttpServletResponse response)
-			throws SQLException, ServletException, IOException {
-		// get parameter passed in the URL
-		String user = request.getParameter("user");
-		Note existingUser = new Note("", "", "");
-		// Step 1: Establishing a Connection
-		try (Connection connection = getConnection();
-				// Step 2:Create a statement using connection object
-				PreparedStatement preparedStatement = connection.prepareStatement(SELECT_USER_BY_ID);) {
-			preparedStatement.setString(1, user);
-			// Step 3: Execute the query or update query
-			ResultSet rs = preparedStatement.executeQuery();
-			// Step 4: Process the ResultSet object
-			while (rs.next()) {
-				user = rs.getString("user");
-				String title = rs.getString("title");
-				String userr = rs.getString("user");
-				String details = rs.getString("details");
-				existingUser = new Note(title, userr, details);
-			}
-		} catch (SQLException e) {
-			System.out.println(e.getMessage());
-		}
-		// Step 5: Set existingUser to request and serve up the userEdit form
-		request.setAttribute("Note", existingUser);
-		request.getRequestDispatcher("/NoteEdit.jsp").forward(request, response);
-	}
-
+	// listNotes function to connect to the database and retrieve all users records
 	private void listNotes(HttpServletRequest request, HttpServletResponse response)
 			throws SQLException, IOException, ServletException {
 		List<Note> notes = new ArrayList<>();
@@ -171,6 +105,79 @@ public class NoteServlet extends HttpServlet {
 		request.setAttribute("listNotes", notes);
 		request.getRequestDispatcher("/noteManagement.jsp").forward(request, response);
 	}
+
+	// method to get parameter, query database for existing user data and redirect
+	// to user edit page
+	private void showEditForm(HttpServletRequest request, HttpServletResponse response)
+			throws SQLException, ServletException, IOException {
+		// get parameter passed in the URL
+		String user = request.getParameter("user");
+		Note existingUser = new Note("", "", "");
+		// Step 1: Establishing a Connection
+		try (Connection connection = getConnection();
+				// Step 2:Create a statement using connection object
+				PreparedStatement preparedStatement = connection.prepareStatement(SELECT_USER_BY_ID);) {
+			preparedStatement.setString(1, user);
+			// Step 3: Execute the query or update query
+			ResultSet rs = preparedStatement.executeQuery();
+			// Step 4: Process the ResultSet object
+			while (rs.next()) {
+				user = rs.getString("user");
+				String title = rs.getString("title");
+				String details = rs.getString("details");
+				existingUser = new Note(title, user, details);
+			}
+		} catch (SQLException e) {
+			System.out.println(e.getMessage());
+		}
+		// Step 5: Set existingUser to request and serve up the userEdit form
+		request.setAttribute("Note", existingUser);
+		request.getRequestDispatcher("/NoteEdit.jsp").forward(request, response);
+	}
+	
+	// method to update the user table base on the form data
+		private void updateNote(HttpServletRequest request, HttpServletResponse response) throws SQLException, IOException 
+		{
+			// Step 1: Retrieve value from the request
+
+		String title = request.getParameter("title");
+		String user = request.getParameter("user");
+		String details = request.getParameter("details");
+
+		// Step 2: Attempt connection with database and execute update user SQL query
+		try (Connection connection = getConnection();
+		PreparedStatement statement = connection.prepareStatement(UPDATE_USERS_SQL);) {
+			statement.setString(1, title);
+			statement.setString(2, details);
+			statement.setString(3, user);
+			int i = statement.executeUpdate();
+			System.out.print(i);
+			System.out.print(statement);
+		}
+		// Step 3: redirect back to NoteServlet (note: remember to change the url to
+		// your project name)
+		response.sendRedirect("http://localhost:8090/NotePad2/NoteServlet/dashboard");
+	}
+	
+	
+
+	// method to delete user
+	private void deleteNote(HttpServletRequest request, HttpServletResponse response) throws SQLException, IOException 
+	{
+		// Step 1: Retrieve value from the request
+		String user = request.getParameter("user");
+		// Step 2: Attempt connection with database and execute delete user SQL query
+		try (Connection connection = getConnection();
+				PreparedStatement statement = connection.prepareStatement(DELETE_USERS_SQL);) {
+			statement.setString(1, user);
+			int i = statement.executeUpdate();
+			System.out.print(statement);
+		}
+		// Step 3: redirect back to UserServlet dashboard (note: remember to change the
+		// url to your project name)
+		response.sendRedirect("http://localhost:8090/NotePad2/NoteServlet/dashboard");
+	}
+
 
 	/**
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse
