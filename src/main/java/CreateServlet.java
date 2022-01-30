@@ -62,10 +62,11 @@ public class CreateServlet extends HttpServlet {
 			 int i = ps.executeUpdate();
 			 //Step 7: check if the query had been successfully execute, return “You are successfully registered” via the response,
 			 if (i > 0){
-				PrintWriter writer = response.getWriter();
-				writer.println("<h1>" + "You have successfully created a note!" +
-				"</h1>");
-				writer.close();
+//				PrintWriter writer = response.getWriter();
+//				writer.println("<h1>" + "You have successfully created a note!" +
+//				"</h1>");
+//				writer.close();
+				 response.sendRedirect("http://localhost:8090/NotePad2/NoteServlet/dashboard");
 			 }
 		}
 		//Step 8: catch and print out any exception
