@@ -14,7 +14,7 @@
 <body>
 	<nav class="navbar navbar-expand-md navbar-light">
 		<div>
-			<a class="navbar-brand"> User Management Application </a>
+			<a class="navbar-brand"> User Note Application </a>
 		</div>
 		<ul class="navbar-nav">
 			<li><a
