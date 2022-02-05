@@ -151,7 +151,7 @@ public class NoteServlet extends HttpServlet {
 			statement.setString(2, details);
 			statement.setString(3, user);
 			int i = statement.executeUpdate();
-			System.out.print(i);
+			
 			System.out.print(statement);
 		}
 		// Step 3: redirect back to NoteServlet (note: remember to change the url to
