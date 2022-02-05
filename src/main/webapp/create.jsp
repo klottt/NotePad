@@ -19,7 +19,7 @@
 		<ul class="navbar-nav">
 			<li><a
 				href="<%=request.getContextPath()%>/NoteServlet/dashboard"
-				class="nav-link">Back to Dashboard</a></li>
+				class="nav-link">Back to Menu</a></li>
 		</ul>
 	</nav>
 	<form action="CreateServlet" method="post">
