@@ -9,7 +9,7 @@
 	integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T"
 	crossorigin="anonymous">
 <meta charset="ISO-8859-1">
-<title>Insert title here</title>
+<title>Home</title>
 </head>
 <body>
 	<div class="row">
@@ -44,9 +44,9 @@ information accordingly -->
 							<td><c:out value="${notes.details}" /></td>
 							<!-- For each user in the database, Edit/Delete
 buttons which invokes the edit/delete functions -->
-							<td><a href="edit?user=<c:out value='${notes.user}'
+							<td><a class='link' href="edit?user=<c:out value='${notes.user}'
 />">Edit</a>
-								&nbsp;&nbsp;&nbsp;&nbsp; <a
+							<a
 								href="delete?user=<c:out
 value='${notes.user}' />">Delete</a></td>
 						</tr>
