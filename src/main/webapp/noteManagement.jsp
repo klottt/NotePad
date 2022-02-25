@@ -39,7 +39,7 @@
 						<!-- For each user in the database, display their
 information accordingly -->
 						<tr>
-							<td><c:out value="${notes.user}" /></td>
+							<td class="name"><c:out value="${notes.user}" /></td>
 							<td><c:out value="${notes.title}" /></td>
 							<td><c:out value="${notes.details}" /></td>
 							<!-- For each user in the database, Edit/Delete
