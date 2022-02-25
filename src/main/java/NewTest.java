@@ -13,7 +13,7 @@ public class NewTest {
   private WebDriver webDriver;		
   
   @Test
-  public void checkTitle() {
+  public void checkPages() {
 	  //Load website as a new page
 	  webDriver.navigate().to("http://localhost:8090/NotePad2/NoteServlet/dashboard");
 	  
@@ -30,7 +30,36 @@ public class NewTest {
 	  System.out.println("new title: "+webDriver.getTitle());
   }
   
+  @Test
+  public void checkCreate() {
+	  webDriver.navigate().to("http://localhost:8090/NotePad2/create.jsp");
+	  
+	  webDriver.findElement(By.name("userName")).sendKeys("testngusername");
+	  webDriver.findElement(By.name("title")).sendKeys("testngtitle");
+	  webDriver.findElement(By.name("description")).sendKeys("testngdescription");
+	  
+	  webDriver.findElement(By.className("button")).submit();
+	  
+	  Assert.assertTrue(webDriver.getTitle().contains("Home"));
+  }
   
+  @Test
+  public void checkUpdate() {
+	  webDriver.navigate().to("http://localhost:8090/NotePad2/NoteServlet/edit?user=testngusername");
+	  
+	  webDriver.findElement(By.name("title")).sendKeys("UPDATED");
+	  webDriver.findElement(By.name("details")).sendKeys("UPDATED");
+	  
+	  webDriver.findElement(By.name("submit")).submit();
+	  
+	  Assert.assertEquals(webDriver.getTitle(), "Home");
+  }
+  
+  @Test
+  public void checkDelete() {
+	  webDriver.navigate().to("http://localhost:8090/NotePad2/NoteServlet/delete?user=testngusername");
+	  Assert.assertTrue(webDriver.getTitle().contains("Home"));
+  }
   
   @BeforeTest
   public void beforeTest() {
@@ -44,10 +73,10 @@ public class NewTest {
 	  webDriver = new ChromeDriver();  
   }
 
-  @AfterTest
-  public void afterTest() {
-	  //Quit the ChromeDriver and close all associated window at the end of test
-	  webDriver.quit();			
-  }
+//  @AfterTest
+//  public void afterTest() {
+//	  //Quit the ChromeDriver and close all associated window at the end of test
+//	  webDriver.quit();			
+//  }
 
 }

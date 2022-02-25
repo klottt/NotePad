@@ -55,7 +55,7 @@
 					<label>Details</label> <input type="text" value="<c:out value='${Note.details}' />" class="form-control"
 						name="details">
 				</fieldset>
-				<button type="submit" class="btn btn-success">Save</button>
+				<button name="submit" type="submit" class="btn btn-success">Save</button>
 				</form>
 			</div>
 		</div>
